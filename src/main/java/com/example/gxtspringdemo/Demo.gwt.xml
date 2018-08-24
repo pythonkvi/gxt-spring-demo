@@ -1,0 +1,21 @@
+<module>
+    <inherits name="com.google.gwt.user.User"/>
+    <inherits name="com.sencha.gxt.ui.GXT"/>
+    <inherits name="com.google.gwt.precompress.Precompress"/>
+    <inherits name="com.google.common.collect.Collect"/>
+    <inherits name="com.google.gwt.i18n.I18N"/>
+    <inherits name="org.fusesource.restygwt.RestyGWT"/>
+
+    <set-property name="compiler.stackMode" value="emulated" />
+    <set-property name="compiler.emulatedStack" value="true" />
+    <set-configuration-property name="compiler.emulatedStack.recordLineNumbers" value="true" />
+    <set-configuration-property name="compiler.emulatedStack.recordFileNames" value="true" />
+
+    <source path="client"/>
+    <source path="shared"/>
+
+    <entry-point class="com.example.gxtspringdemo.client.DemoEntryPoint"/>
+
+    <extend-property name="locale" values="ru"/>
+    <set-property name="locale" value="ru"/>
+</module>
