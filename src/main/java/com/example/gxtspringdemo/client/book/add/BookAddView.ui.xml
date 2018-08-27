@@ -1,0 +1,44 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:gxtCnt="urn:import:com.sencha.gxt.widget.core.client.container"
+             xmlns:gxtFrm="urn:import:com.sencha.gxt.widget.core.client.form"
+             xmlns:gxtBtn="urn:import:com.sencha.gxt.widget.core.client.button">
+
+    <gxtCnt:VerticalLayoutContainer>
+        <gxtCnt:child>
+            <gxtFrm:FieldLabel text="ISBN">
+                <gxtFrm:child>
+                    <gxtFrm:TextField ui:field="ISBN"/>
+                </gxtFrm:child>
+            </gxtFrm:FieldLabel>
+        </gxtCnt:child>
+        <gxtCnt:child>
+            <gxtFrm:FieldLabel text="Title">
+                <gxtFrm:child>
+                    <gxtFrm:TextField ui:field="title"/>
+                </gxtFrm:child>
+            </gxtFrm:FieldLabel>
+        </gxtCnt:child>
+        <gxtFrm:FieldLabel text="Author">
+            <gxtFrm:child>
+                <gxtFrm:ComboBox ui:field="author" triggerAction="ALL" editable="false"/>
+            </gxtFrm:child>
+        </gxtFrm:FieldLabel>
+        <gxtCnt:child>
+            <gxtFrm:FieldLabel text="Has e-Book?">
+                <gxtFrm:child>
+                    <gxtFrm:CheckBox ui:field="ebook"/>
+                </gxtFrm:child>
+            </gxtFrm:FieldLabel>
+        </gxtCnt:child>
+        <gxtCnt:child>
+            <gxtCnt:HBoxLayoutContainer HBoxLayoutAlign="STRETCH">
+                <gxtCnt:child>
+                    <gxtBtn:TextButton ui:field="save" text="Save"/>
+                </gxtCnt:child>
+                <gxtCnt:child>
+                    <gxtBtn:TextButton ui:field="close" text="Close"/>
+                </gxtCnt:child>
+            </gxtCnt:HBoxLayoutContainer>
+        </gxtCnt:child>
+    </gxtCnt:VerticalLayoutContainer>
+</ui:UiBinder>

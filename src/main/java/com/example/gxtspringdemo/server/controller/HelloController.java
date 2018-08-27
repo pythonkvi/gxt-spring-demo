@@ -1,4 +1,4 @@
-package com.example.gxtspringdemo.server;
+package com.example.gxtspringdemo.server.controller;
 
 import com.example.gxtspringdemo.shared.DemoDTO;
 import org.springframework.web.bind.annotation.ResponseBody;
