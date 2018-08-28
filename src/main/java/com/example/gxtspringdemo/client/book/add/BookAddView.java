@@ -21,21 +21,6 @@ import com.sencha.gxt.widget.core.client.form.TextField;
 import java.util.List;
 
 public class BookAddView implements IsWidget {
-    public String getISBNValue() {
-        return ISBN.getCurrentValue();
-    }
-
-    public String getTitleValue() {
-        return title.getCurrentValue();
-    }
-
-    public Author getAuthorValue() {
-        return author.getCurrentValue();
-    }
-
-    public boolean getEBookValue() {
-        return ebook.getValue();
-    }
 
     interface BookAddUiBinder extends UiBinder<VerticalLayoutContainer, BookAddView> {
     }
@@ -58,15 +43,12 @@ public class BookAddView implements IsWidget {
     @UiField
     TextField title;
     @UiField
-    CheckBox ebook;
+    CheckBox eBook;
 
     public BookAddView() {
         author = new ComboBox<>(new ListStore<Author>(AUTHOR_PROP.key()), AUTHOR_PROP.label());
 
         container = ourUiBinder.createAndBindUi(this);
-        container.setVisible(false);
-
-        presenter.listAuthor();
 
         window.setWidget(container);
     }
@@ -77,6 +59,7 @@ public class BookAddView implements IsWidget {
     }
 
     public void show() {
+        presenter.listAuthor();
         window.show();
     }
 
@@ -103,6 +86,22 @@ public class BookAddView implements IsWidget {
     @UiHandler("close")
     public void closeSelect(SelectEvent event) {
         window.hide();
+    }
+
+    public String getISBNValue() {
+        return ISBN.getCurrentValue();
+    }
+
+    public String getTitleValue() {
+        return title.getCurrentValue();
+    }
+
+    public Author getAuthorValue() {
+        return author.getCurrentValue();
+    }
+
+    public boolean getEBookValue() {
+        return eBook.getValue();
     }
 
 }

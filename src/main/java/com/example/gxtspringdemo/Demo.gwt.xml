@@ -5,6 +5,7 @@
     <inherits name="com.google.common.collect.Collect"/>
     <inherits name="com.google.gwt.i18n.I18N"/>
     <inherits name="org.fusesource.restygwt.RestyGWT"/>
+    <inherits name="com.google.gwt.inject.Inject"/>
 
     <set-property name="compiler.stackMode" value="emulated" />
     <set-property name="compiler.emulatedStack" value="true" />
@@ -15,6 +16,12 @@
     <source path="shared"/>
 
     <entry-point class="com.example.gxtspringdemo.client.DemoEntryPoint"/>
+
+    <inherits name="org.hibernate.validator.HibernateValidator"/>
+
+    <replace-with class="com.example.gxtspringdemo.client.GwtHibernateValidatorFactory">
+        <when-type-is class="javax.validation.ValidatorFactory"/>
+    </replace-with>
 
     <extend-property name="locale" values="ru"/>
     <set-property name="locale" value="ru"/>

@@ -8,13 +8,13 @@ public class BookAddEvent extends GwtEvent<BookAddEvent.BookAddHandler> {
 
     @Override
     public Type<BookAddHandler> getAssociatedType() {
-        if (TYPE == null) {
-            TYPE = new Type<>();
-        }
-        return TYPE;
+        return TYPE();
     }
 
     public static Type<BookAddHandler> TYPE() {
+        if (TYPE == null) {
+            TYPE = new Type<>();
+        }
         return TYPE;
     }
 

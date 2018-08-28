@@ -28,6 +28,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hibernate.validator</groupId>
+                    <artifactId>hibernate-validator</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -85,6 +91,42 @@
         </dependency>
 
         <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.0.0.GA</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.1.0.Final</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <classifier>sources</classifier>
+            <version>1.0.0.GA</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <classifier>sources</classifier>
+            <version>4.1.0.Final</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.gwt.inject</groupId>
+            <artifactId>gin</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -114,8 +156,8 @@
                             <localWorkers>4</localWorkers>
                             <!-- Uncomment in case of wierd client-side exceptions -->
                             <!-- <optimizationLevel>0</optimizationLevel> -->
-                            <!--<style>PRETTY</style>-->
-                            <style>OBFUSCATED</style>
+                            <style>PRETTY</style>
+                            <!--<style>OBFUSCATED</style>-->
                             <extraJvmArgs>-Xms512m -Xmx2048m -XX:MaxPermSize=256m -Dfile.encoding=UTF-8</extraJvmArgs>
                             <webappDirectory>${build.directory}/classes/static</webappDirectory>
                         </configuration>

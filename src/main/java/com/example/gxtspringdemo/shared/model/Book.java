@@ -1,10 +1,10 @@
 package com.example.gxtspringdemo.shared.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.Strings;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,13 +13,17 @@ public class Book implements Serializable {
     @Id
     @Column(length = 20)
     @JsonProperty
-    private String ISBN;
+    @NotNull(message = "ISBN can't be empty")
+    private String isbn;
 
     @Column(nullable = false, length = 200)
     @JsonProperty
+    @NotNull(message = "Title can't be empty")
+    @Size(min=1, max=200, message = "Title can't be larger than 200")
     private String title;
 
     @ManyToOne
+    @NotNull(message = "Author can't be empty")
     private Author author;
 
     @Column
@@ -29,21 +33,12 @@ public class Book implements Serializable {
     @Column
     private Date dateAdd;
 
-    public String getISBN() {
-        return ISBN;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }
-
-    @JsonIgnore
-    public String getiSBN() {
-        return getISBN();
-    }
-
-    public void setiSBN(String ISBN) {
-        this.setISBN(ISBN);
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getTitle() {
@@ -81,7 +76,7 @@ public class Book implements Serializable {
     @Override
     public String toString() {
         return "Book{" +
-                "ISBN='" + ISBN + '\'' +
+                "isbn='" + isbn + '\'' +
                 ", title='" + title + '\'' +
                 ", author=" + author +
                 ", eBook=" + eBook +

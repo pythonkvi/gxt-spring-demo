@@ -1,32 +1,50 @@
 package com.example.gxtspringdemo.client.book;
 
+import com.example.gxtspringdemo.client.AlertUtils;
 import com.example.gxtspringdemo.client.DefaultMethodCallback;
 import com.example.gxtspringdemo.client.book.add.BookAddView;
 import com.example.gxtspringdemo.client.event.BookAddEvent;
 import com.example.gxtspringdemo.client.event.BookAddedEvent;
+import com.example.gxtspringdemo.client.event.BookDeletedEvent;
 import com.example.gxtspringdemo.shared.model.Author;
 import com.example.gxtspringdemo.shared.model.Book;
 import com.example.gxtspringdemo.shared.service.AuthorService;
 import com.example.gxtspringdemo.shared.service.BookService;
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Iterables;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.inject.Inject;
 import com.sencha.gxt.data.shared.ListStore;
 import org.fusesource.restygwt.client.Method;
 
+import javax.annotation.Nullable;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class BookPresenter {
     private final BookView view;
     private final BookAddView viewAdd;
-    private final SimpleEventBus eventBus;
 
-    private static final BookService BOOK_SERVICE = GWT.create(BookService.class);
-    private static final AuthorService AUTHOR_SERVICE = GWT.create(AuthorService.class);
+    @Inject
+    private SimpleEventBus eventBus;
 
-    public BookPresenter(BookView view, BookAddView viewAdd, SimpleEventBus eventBus) {
+    @Inject
+    private BookService BOOK_SERVICE;
+
+    @Inject
+    private AuthorService AUTHOR_SERVICE;
+
+    final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
+    @Inject
+    public BookPresenter(BookView view, BookAddView viewAdd) {
         this.view = view;
-        this.eventBus = eventBus;
         this.viewAdd = viewAdd;
 
         view.setPresenter(this);
@@ -42,11 +60,11 @@ public class BookPresenter {
     }
 
     public void handleRemove(List<Book> selectedItems) {
-        for (Book book : selectedItems) {
+        for (final Book book : selectedItems) {
             BOOK_SERVICE.delete(book, new DefaultMethodCallback<Void>() {
                 @Override
                 public void onSuccess(Method method, Void aVoid) {
-                    // nothing
+                    eventBus.fireEvent(new BookDeletedEvent(book));
                 }
             });
         }
@@ -72,11 +90,23 @@ public class BookPresenter {
 
     public void handleSave() {
         final Book book = new Book();
-        book.setISBN(viewAdd.getISBNValue());
+        book.setIsbn(viewAdd.getISBNValue());
         book.setTitle(viewAdd.getTitleValue());
         book.setAuthor(viewAdd.getAuthorValue());
         book.seteBook(viewAdd.getEBookValue());
         book.setDateAdd(new Date());
+
+        Set<ConstraintViolation<Book>> validateErrors = validator.validate(book);
+        if (!validateErrors.isEmpty()) {
+            AlertUtils.showError(Joiner.on("<br/>").join(Iterables.transform(validateErrors, new Function<ConstraintViolation<Book>, Object>() {
+                @Nullable
+                @Override
+                public Object apply(@Nullable ConstraintViolation<Book> input) {
+                    return input.getMessage();
+                }
+            })));
+            return;
+        }
 
         BOOK_SERVICE.save(book, new DefaultMethodCallback<Void>() {
 

@@ -4,14 +4,13 @@ import com.example.gxtspringdemo.server.dao.BookDAO;
 import com.example.gxtspringdemo.shared.model.Book;
 import com.google.common.collect.ImmutableList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.PathParam;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class BookController {
@@ -25,16 +24,19 @@ public class BookController {
         return ImmutableList.copyOf(bookDAO.findAll());
     }
 
-    @RequestMapping("/api/book/{id}/delete")
+    @RequestMapping("/api/book/{isbn}/delete")
     @Produces("application/json")
-    public void delete(@PathVariable("id") String id) {
-        bookDAO.delete(bookDAO.findById(id).get());
+    public Map delete(@PathVariable("isbn") String isbn) {
+        bookDAO.deleteById(isbn);
+        return Collections.emptyMap();
     }
 
     @RequestMapping("/api/book/save")
+    @Consumes("application/json")
     @Produces("application/json")
-    public void save(Book book) {
+    public Map save(@RequestBody Book book) {
         bookDAO.save(book);
+        return Collections.emptyMap();
     }
 
 }

@@ -6,6 +6,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 import com.sencha.gxt.widget.core.client.Window;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
@@ -14,12 +15,15 @@ import com.sencha.gxt.widget.core.client.form.PasswordField;
 import com.sencha.gxt.widget.core.client.form.TextField;
 
 public class LoginView implements IsWidget {
+    final Window window = new Window();
+
     interface LoginUiBinder extends UiBinder<VerticalLayoutContainer, LoginView> {
     }
 
     private static LoginUiBinder ourUiBinder = GWT.create(LoginUiBinder.class);
 
     private VerticalLayoutContainer container;
+
     private LoginPresenter presenter;
 
     @UiField
@@ -33,6 +37,7 @@ public class LoginView implements IsWidget {
 
     public LoginView() {
         container = ourUiBinder.createAndBindUi(this);
+        window.setWidget(container);
     }
 
     @Override
@@ -52,13 +57,7 @@ public class LoginView implements IsWidget {
     }
 
     public void show() {
-        final Window window = new Window();
-        window.setWidget(container);
         window.show();
-    }
-
-    public void setPresenter(LoginPresenter presenter) {
-        this.presenter = presenter;
     }
 
     public String getLoginValue() {
@@ -67,5 +66,13 @@ public class LoginView implements IsWidget {
 
     public String getPasswordValue() {
         return password.getCurrentValue();
+    }
+
+    public void hide() {
+        window.hide();
+    }
+
+    public void setPresenter(LoginPresenter presenter) {
+        this.presenter = presenter;
     }
 }

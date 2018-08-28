@@ -37,7 +37,7 @@ public class DataInit implements ApplicationRunner {
         authorDAO.save(author);
 
         Book book = new Book();
-        book.setISBN("1234-5678-90");
+        book.setIsbn("1234-5678-90");
         book.setAuthor(author);
         book.setTitle("War and peace");
         bookDAO.save(book);

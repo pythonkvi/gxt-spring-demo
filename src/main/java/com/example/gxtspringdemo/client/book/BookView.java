@@ -3,6 +3,7 @@ package com.example.gxtspringdemo.client.book;
 import com.example.gxtspringdemo.shared.model.Author;
 import com.example.gxtspringdemo.shared.model.Book;
 import com.google.common.collect.ImmutableList;
+import com.google.gwt.cell.client.Cell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -10,6 +11,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
+import com.sencha.gxt.cell.core.client.form.CheckBoxCell;
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
@@ -46,13 +48,18 @@ public class BookView implements IsWidget {
     TextButton add;
 
     public BookView() {
+        final CheckBoxSelectionModel<Book> selectionModel = new CheckBoxSelectionModel<>();
+        final ColumnConfig<Book, ?> checkBoxColumn = selectionModel.getColumn();
+        checkBoxColumn.setWidth(25);
+
         bookList = new Grid<>(new ListStore<Book>(PROPS.key()), new ColumnModel<Book>(ImmutableList.<ColumnConfig<Book, ?>>of(
-                new ColumnConfig<Book, String>(PROPS.ISBN(), 200, "ISBN"),
+                checkBoxColumn,
+                new ColumnConfig<Book, String>(PROPS.isbn(), 200, "ISBN"),
                 new ColumnConfig<Book, String>(PROPS.title(), 300, "Title"),
                 new ColumnConfig<Book, String>(PROPS.author(), 200, "Author")
         )));
 
-        bookList.setSelectionModel(new CheckBoxSelectionModel<Book>());
+        bookList.setSelectionModel(selectionModel);
 
         container = ourUiBinder.createAndBindUi(this);
         container.setVisible(false);
@@ -97,10 +104,10 @@ public class BookView implements IsWidget {
     }
 
     interface BookProp extends PropertyAccess<Book> {
-        @Editor.Path("ISBN")
+        @Editor.Path("isbn")
         ModelKeyProvider<Book> key();
 
-        ValueProvider<Book, String> ISBN();
+        ValueProvider<Book, String> isbn();
 
         ValueProvider<Book, String> title();
 

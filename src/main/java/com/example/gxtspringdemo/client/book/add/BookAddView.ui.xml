@@ -18,15 +18,17 @@
                 </gxtFrm:child>
             </gxtFrm:FieldLabel>
         </gxtCnt:child>
-        <gxtFrm:FieldLabel text="Author">
-            <gxtFrm:child>
-                <gxtFrm:ComboBox ui:field="author" triggerAction="ALL" editable="false"/>
-            </gxtFrm:child>
-        </gxtFrm:FieldLabel>
+        <gxtCnt:child>
+            <gxtFrm:FieldLabel text="Author">
+                <gxtFrm:child>
+                    <gxtFrm:ComboBox ui:field="author" triggerAction="ALL" editable="false"/>
+                </gxtFrm:child>
+            </gxtFrm:FieldLabel>
+        </gxtCnt:child>
         <gxtCnt:child>
             <gxtFrm:FieldLabel text="Has e-Book?">
                 <gxtFrm:child>
-                    <gxtFrm:CheckBox ui:field="ebook"/>
+                    <gxtFrm:CheckBox ui:field="eBook"/>
                 </gxtFrm:child>
             </gxtFrm:FieldLabel>
         </gxtCnt:child>

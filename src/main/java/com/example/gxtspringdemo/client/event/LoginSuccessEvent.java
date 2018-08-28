@@ -8,13 +8,13 @@ public class LoginSuccessEvent extends GwtEvent<LoginSuccessEvent.LoginSuccessHa
 
     @Override
     public Type<LoginSuccessHandler> getAssociatedType() {
-        if (TYPE == null) {
-            TYPE = new Type<>();
-        }
-        return TYPE;
+        return TYPE();
     }
 
     public static Type<LoginSuccessHandler> TYPE() {
+        if (TYPE == null) {
+            TYPE = new Type<>();
+        }
         return TYPE;
     }
 
