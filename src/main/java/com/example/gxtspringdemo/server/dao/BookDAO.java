@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookDAO extends CrudRepository<Book, String> {
     @Override
+    @Query(nativeQuery = true)
     Iterable<Book> findAll();
 }

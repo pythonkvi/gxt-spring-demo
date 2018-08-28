@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@NamedQuery(name = "Book.findAll", query = "SELECT book FROM Book book")
 public class Book implements Serializable {
     @Id
     @Column(length = 20)
